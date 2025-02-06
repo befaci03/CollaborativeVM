@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script>
+    // EJS Injector script
+    window.vmConfig = <%- JSON.stringify(vmConfig) %>;
+  </script>
+
+  <title><%= vmId %> - <%= siteName %></title>
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+  <link rel="stylesheet" href="/css/main.css">
+
+  <script src="/socket.io/socket.io.js"></script>
+
+  <script type="module" src="/js/CLIManager.js"></script>
+  <script src="/js/storageManage.js"></script>
+</head>
+<body>
+  <nav>
+    <font onclick="window.location.pathname = '/'" class="aSpan" style="font-size: 21px; font-weight: 750;  margin-right: 14px;"><%= siteName %></font>
+    <span class="aSpan">Mode _</span>
+  </nav>
+  <header>
+    <center>
+      <h4>Cliquez sur l'écran pour prendre la main</h4>
+      <font style="font-size: 17px; font-weight: bold;">VM: <%= vmId %></font>
+      <div id="vmScreen"></div>
+      <div id="vmcontrols">
+        <ul class="liulLineContent">
+          <li>
+            <span class="spanBtn vmcontrol" id="cvmTaketurn">
+              Start turn
+            </span>
+            <span class="spanBtn vmcontrol" id="vmKboard">
+              Keyboard
+            </span>
+            <span class="spanBtn vmcontrol" id="vmKeyCAD">
+              Ctrl+Alt+Del
+            </span>
+            <span class="spanBtn vmcontrol" id="voteReset">
+              Start a reset vote
+            </span>
+          </li>
+          <li>
+            
+          </li>
+        </ul>
+      </div>
+    </center>
+
+    <div id="column1" class="column list">
+      Online users: <span id="onlineUsers_Counter"><%= socket.users.length %></span>
+      <div class="list" id="userslist">
+        <% socket.users.forEach(function(user) { %>
+          <li><%= user.username %></li>
+        <% }) %>
+      </div>
+    </div>
+  </header>
+</body>
+</html>
