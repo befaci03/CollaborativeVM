@@ -3,7 +3,7 @@
 
 ### Hello, welcome to [the official GitHub repo](https://github.com/Befaci03/CollaborativeVM) of CollaborativeVM
 
-### Credits: [Myself](https://befacidev.eu)
+### Credits: [Myself](http://befacidev.eu)
 
 ## FAQ
 
@@ -14,7 +14,7 @@
 
    We use AES, HMAC and some random basic encryptions algorithm to keep private credentials really safe.
 
-   We use socket.io for some systems that really need a real'time system, like users and chat.
+   We use socket.io for some systems that really need a realtime system, like users and chat.
 
 ### Q: Where did you have the idea and why ?
 **A:** I pick the idea from [Computernewb](https://computernewb.com) that created [CollabVM](https://computernewb.com/collab-vm) and [UserVM](https://computernewb.com/collab-vm/user-vm) to recreate it better than [CollabVM V3.0](https://computernewb.com/wiki/CollabVM_Server_3.0) and to remove all sh*ts that staffs coded in that.
