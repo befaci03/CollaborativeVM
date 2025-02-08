@@ -48,4 +48,4 @@ First, we need modules, execute `yarn && npm start` then when you are on the men
 
 Next, we need a modification of the config file to adapt to your use, simply follow comments on the file.
 
-Finally, to launch CollaborativeVM, execute on a terminal `npm run instantstart` or `npm start` and select `Start the server`
+Finally, to launch CollaborativeVM, execute on a terminal `npm run instantstart` or `npm start` then select `Start the server`

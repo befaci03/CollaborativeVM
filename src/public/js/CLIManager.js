@@ -1,4 +1,4 @@
-import RFB from '/novnc/core/rfb.js';
+import RFB from "/novnc/core/rfb.js";
 
 let detectedLayout = "QWERTY";
 function translateKey(layout, key) {
@@ -11,12 +11,14 @@ function initNoVNC() {
     rfb = new RFB(document.getElementById('vmScreen'), 'ws://localhost:5911');
     rfb.scaleViewport = true;
     rfb.resizeSession = true;
-    console.log("RFB connected on the VM ws://localhost:5911");
+    console.log(`RFB_ScreenViewer connected on the VM ws://localhost:5911`);
 
+    document.querySelector('#vmScreen div').setAttribute('style', 'display: flex; width: 100%; height: 100%; overflow: auto; background: url(\'/loadingVm.gif\'); background-repeat: no-repeat; background-position: center; background-size: 15%;');
+    document.querySelector('canvas').setAttribute('style', 'margin: auto; outline: none; cursor: <%%>; width: 100%; height: 100%;'.replace('<%%>', vmConfig.cursorHoverScreen));
     const makeSure__vmscrn = setInterval(() => {
-      document.querySelector('#vmScreen div').setAttribute('style', 'display: flex; width: 100%; height: 100%; overflow: auto; background: rgb(64, 32, 32);');
+      document.querySelector('#vmScreen div').setAttribute('style', 'display: flex; width: 100%; height: 100%; overflow: auto; background: url(\'/loadingVm.gif\'); background-repeat: no-repeat; background-position: center; background-size: 15%;');
       document.querySelector('canvas').setAttribute('style', 'margin: auto; outline: none; cursor: <%%>; width: 100%; height: 100%;'.replace('<%%>', vmConfig.cursorHoverScreen));
-    }, 1600);
+    }, 400);
 
     rfb.addEventListener("disconnect", () => {
       console.warn("Deconnection detected, atfer 450ms reconnecting");
@@ -92,7 +94,7 @@ function initSocket() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  if (vmConfig.cursorHoverScreen === "0=false??ERR404-return=:!") window.location.pathname = '/vm';
+  if (vmConfig.cursorHoverScreen === "0=false??ERR404-return=:!") window.location.pathname = '/error/404?m=VM%20not%20found';
 
   initNoVNC();
   initSocket();

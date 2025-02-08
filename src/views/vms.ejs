@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    // EJS Injector script
+    window.vms = <%- JSON.stringify(vms) %>;
+  </script>
+
+  <title><%= siteName %> # VM List</title>
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+  <link rel="stylesheet" href="/css/main.css">
+
+  <script src="/js/storageManage.js" type="text/javascript"></script>
+  <script src="/js/vmsManage.js" type="module"></script>
+</head>
+<body>
+  <nav>
+    <font onclick="window.location.pathname = '/'" class="aSpan" style="font-size: 23px; font-weight: 750; margin-right: 14px;"><%= siteName %></font>
+    <span class="aSpan">VM List</span>
+  </nav>
+  <header>
+    <center>
+      <h1>Available VMs</h1>
+      <ul id="vmList" style="list-style:none;">
+        <% if (Object.keys(vms).length > 0) { %>
+          <% Object.keys(vms).forEach(function(vmId) { %>
+            <li>
+              <div class="vmBox vm" onclick="window.location.pathname = '/vm/<%= vmId %>'" class="aSpan">
+                <% if (vms[vmId].display.thumbnail[0] === "track") { %>
+                  <div class="vmThumb" id="<%= vmId %>-trackmode"></div>
+                <% } else if (vms[vmId].display.thumbnail[0] === "static") { %>
+                  <img src="/images/<%= vms[vmId].display.thumbnail[1] %>" alt="Representation of <%= vmId %>" class="vmThumb">
+                <% } else { %>
+                  <div class="vmThumb"><i>No thumbnail</i></div>
+                <% } %>
+                <div class="vmBoxTitle"><%= vms[vmId].display.name %></div>
+                <div class="vmBoxDesc"><%= vms[vmId].display.description %></div>
+                <div class="vmBoxTags"><%= vms[vmId].display.tags %></div>
+              </div>
+            </li>
+          <% }) %>
+        <% } else { %>
+          <li>No VMs available</li>
+        <% } %>
+      </ul>
+    </center>
+  </header>
+</body>
+</html>

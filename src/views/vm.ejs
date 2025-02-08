@@ -3,13 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <script>
     // EJS Injector script
     window.vmConfig = <%- JSON.stringify(vmConfig) %>;
   </script>
 
-  <title><%= vmId %> - <%= siteName %></title>
+  <title><%= siteName %> # <%= vmId %></title>
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
   <link rel="stylesheet" href="/css/main.css">
@@ -21,8 +20,8 @@
 </head>
 <body>
   <nav>
-    <font onclick="window.location.pathname = '/'" class="aSpan" style="font-size: 21px; font-weight: 750;  margin-right: 14px;"><%= siteName %></font>
-    <span class="aSpan">Mode _</span>
+    <font onclick="window.location.pathname = '/'" class="aSpan" style="font-size: 21px; font-weight: 750; margin-right: 18px;"><%= siteName %></font>
+    <span class="aSpan" id="themeToggler">null Mode</span>
   </nav>
   <header>
     <center>

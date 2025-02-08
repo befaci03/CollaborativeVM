@@ -1,4 +1,5 @@
 import { spawn, ChildProcess } from 'child_process';
+import * as path from 'path';
 
 export class QEMUManager {
     private vmProcesses: Map<string, ChildProcess>;
@@ -45,10 +46,10 @@ export class QEMUManager {
         if (kvm) qemuArgs.push('--enable-kvm');
         if (ram) qemuArgs.push('-m', ram);
         if (extraOpt) qemuArgs.push(extraOpt.split(' '));
-        if (maindrive && mdrvFormat) qemuArgs.push('-drive', `file=${maindrive},format=${mdrvFormat},snapshot=${snapshots ? 'on' : 'off'}`);
-        if (maindrive && !mdrvFormat) qemuArgs.push('-drive', `file=${maindrive},snapshot=${snapshots ? 'on' : 'off'}`);
+        if (maindrive && mdrvFormat) qemuArgs.push('-drive', `file=${`${path.join(__dirname, '..', '..', '_vms')}/${maindrive}`},format=${mdrvFormat},snapshot=${snapshots ? 'on' : 'off'}`);
+        if (maindrive && !mdrvFormat) qemuArgs.push('-drive', `file=${`${path.join(__dirname, '..', '..', '_vms')}/${maindrive}`},snapshot=${snapshots ? 'on' : 'off'}`);
         if (cores) qemuArgs.push('-smp', `cores=${cores}`);
-        if (cddvd) qemuArgs.push('-cdrom', cddvd);
+        if (cddvd) qemuArgs.push('-cdrom', `${path.join(__dirname, '..', '..', '_vms', 'isos')}/${cddvd}`);
         if (net) qemuArgs.push('-net', 'nic', '-net', 'user');
         if (!net) qemuArgs.push('-net', `none`);
         if (display) qemuArgs.push('-display', display);

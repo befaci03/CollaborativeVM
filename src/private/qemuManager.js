@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.QEMUManager = void 0;
 var child_process_1 = require("child_process");
+var path = require("path");
 var QEMUManager = /** @class */ (function () {
     function QEMUManager(_conf) {
         this.vmProcesses = new Map();
@@ -21,8 +22,7 @@ var QEMUManager = /** @class */ (function () {
         var qemuConf = vmConfig.vm;
         var qemuType = qemuConf[0], kvm = qemuConf[1], extraOpt = qemuConf[2], ram = qemuConf[3], maindrive = qemuConf[4], mdrvFormat = qemuConf[5], cddvd = qemuConf[6], cores = qemuConf[7], net = qemuConf[8], display = qemuConf[9], vga = qemuConf[10], snapshots = qemuConf[11];
         var qemuArgs = [
-            '-usbdevice',
-            'tablet',
+            '-usbdevice', 'tablet',
             '-vnc',
             ":1",
             '-name',
@@ -35,13 +35,13 @@ var QEMUManager = /** @class */ (function () {
         if (extraOpt)
             qemuArgs.push(extraOpt.split(' '));
         if (maindrive && mdrvFormat)
-            qemuArgs.push('-drive', "file=".concat(maindrive, ",format=").concat(mdrvFormat, ",snapshot=").concat(snapshots ? 'on' : 'off'));
+            qemuArgs.push('-drive', "file=".concat("".concat(path.join(__dirname, '..', '..', '_vms'), "/").concat(maindrive), ",format=").concat(mdrvFormat, ",snapshot=").concat(snapshots ? 'on' : 'off'));
         if (maindrive && !mdrvFormat)
-            qemuArgs.push('-drive', "file=".concat(maindrive, ",snapshot=").concat(snapshots ? 'on' : 'off'));
+            qemuArgs.push('-drive', "file=".concat("".concat(path.join(__dirname, '..', '..', '_vms'), "/").concat(maindrive), ",snapshot=").concat(snapshots ? 'on' : 'off'));
         if (cores)
             qemuArgs.push('-smp', "cores=".concat(cores));
         if (cddvd)
-            qemuArgs.push('-cdrom', cddvd);
+            qemuArgs.push('-cdrom', "".concat(path.join(__dirname, '..', '..', '_vms', 'isos'), "/").concat(cddvd));
         if (net)
             qemuArgs.push('-net', 'nic', '-net', 'user');
         if (!net)

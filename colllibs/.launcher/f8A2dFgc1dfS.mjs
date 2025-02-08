@@ -35,7 +35,7 @@ function init(message, delayEachProgress) {
     }, delayEachProgress);
 }
 
-async function loading(mod, message, duration) {
+async function loading(mod, message, duration, endMsg) {
     return new Promise((resolve) => {
         if (message) console.log(`\n${message}\n`);
 
@@ -56,7 +56,7 @@ async function loading(mod, message, duration) {
             if (progress >= 100) {
                 clearInterval(interval);
                 progressBar.stop();
-                console.log('✅ Loaded successfully!\n');
+                console.log(`${endMsg || chalk.greenBright('Loaded')}\n`);
                 resolve();
             }
         }, Math.round(duration / 100));
@@ -100,10 +100,6 @@ async function mainMenu() {
 }
 
 async function startServer() {
-    await loading('Loading modules', false, 430);
-    await loading('Loading script', false, 1740);
-    await loading('Loading server', "Starting the server", 430);
-
     console.log("\n🚀 Server is starting...\n");
 
     try {
@@ -121,7 +117,8 @@ async function initialize() {
     console.log('Installing modules...');
 
     const modules = [
-        'jsonc-parser@3.3.1', 'canvas@3.1.0', 'fs@0.0.1-security', 'path@0.12.7', 'socket.io@4.8.1', 'sqlite3@5.1.7', 'express@4.21.2', 'ejs@3.1.10'
+        'jsonc-parser@3.3.1', 'canvas@3.1.0', 'fs@0.0.1-security', 'path@0.12.7', 'socket.io@4.8.1', 'sqlite3@5.1.7', 'express@4.21.2',
+        'ejs@3.1.10', 'crypto@1.0.1', 'ldrs@1.0.2'
     ];
 
     const progressBar = new SingleBar({
@@ -240,6 +237,12 @@ async function initialize() {
         "std", // VGA display system (we recommend virtio, available: qxl, std, virtio)
         false // Enable/Disable snapshots
       ],
+      "display": {
+        "thumbnail": ["track", 3000 /* Refresh delay, minimum is 2 seconds */], // The thumbnail of the VM (available: track - track means that the thumbnail will take the screen of the VM, path like /thumbs/namevm0.png all images registered on images folder, none)
+        "name": "VM0", // The name of the VM
+        "description": "This is the example VM", // The description of the VM (a few HTML tags are functional)
+        "tags": ["nsfw", "example", "no-internet", "no-audio"] // The tags on the VM (available: nsfw, example, no-internet, no-audio, anyos)
+      },
       "turnTimeLimit": 20, // The time for the next user to have the turn (in seconds)
       "enableChatSys": true, // Enable/Disable the chatting system
       "cursorIdWhenHoverScreen": "url(\\"/cursors/vm.gif\\"), auto !important" // The cursor ID when hover the VM screen
@@ -254,24 +257,26 @@ async function initialize() {
             resolve();
         }
     });
-    });
-
+});
 }
 
 async function modifyConfig() {
-    console.log('\n🛠️ Launching nano...\n');
+    console.log('\n             🛠️ Launching nano...\n');
 
-    await new Promise((resolve, reject) => {
-        exec(`cd ../../.. && nano CONFIG.jsonc`, (error, stdout, stderr) => {
+    await new Promise(async (resolve, reject) => {
+        await execSync(`cd ../../.. && nano CONFIG.jsonc`, (error, stdout, stderr) => {
             if (error) {
                 console.error(chalk.red(`Error when executing shell command, code ${error.code}: ${error.message}`));
                 mainMenu();
+                reject();
             } else if (stderr) {
                 console.error(chalk.red(`Error while launching nano: ${stderr}`));
                 mainMenu();
+                reject();
             } else {
             }
         });
+        resolve();
     });
 
     mainMenu();

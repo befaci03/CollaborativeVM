@@ -7,6 +7,8 @@ const cors = require('cors');
 const __configPath = path.join(__dirname, '..', 'CONFIG.jsonc');
 const { ProjectConfig } = require('./private/confParser');
 
+const ejsDefltElems = { };
+
 let __config = new ProjectConfig().loadConfig(__configPath);
 
 /*setInterval(() => {
@@ -15,9 +17,11 @@ let __config = new ProjectConfig().loadConfig(__configPath);
 }, 25000);*/
 
 const { QEMUManager } = require('./private/qemuManager');
-Object.keys(__config["vms.qemu"]).forEach(vmId => {
-  new QEMUManager(__config).startVM(vmId);
-});
+if (__config["vms.qemu"]) {
+  Object.keys(__config["vms.qemu"] || {}).forEach(vmId => {
+    new QEMUManager(__config).startVM(vmId);
+  });
+}
 
 const app = express();
 const server = http.createServer(app);
@@ -35,18 +39,40 @@ const vmData = {};
 
 app.get('/vm/:vmId', (req, res) => {
   const vmId = req.params.vmId;
-  res.render('vm', { 
-    vmId, 
-    siteName: __config.global.name, 
-    socket: { users: [] }, 
-    vmConfig: { cursorHoverScreen: __config["vms.qemu"][vmId] ? __config["vms.qemu"][vmId].cursorIdWhenHoverScreen : '0=false??ERR404-return=:!' } 
+  res.render('vm', {
+    ejsDefltElems,
+    vmId,
+    siteName: __config.global.name,
+    socket: { users: [] },
+    vmConfig: { cursorHoverScreen: __config["vms.qemu"] && __config["vms.qemu"][vmId] ? __config["vms.qemu"][vmId].cursorIdWhenHoverScreen : '0=false??ERR404-return=:!' }
+  });
+});
+
+app.get('/vms', (req, res) => {
+  res.render('vms', {
+    ejsDefltElems,
+    siteName: __config.global.name,
+    vms: __config["vms.qemu"] || {}
   });
 });
 
 app.get('/', (req, res) => {
-  res.send("Welcome on CollaborativeVM! Go to /vm/[id] to start.");
+  res.render('home', {
+    ejsDefltElems,
+    siteName: __config.global.name
+  });
 });
 
+app.get('/error/:code', (req, res) => {
+  const msg = req.query.m || '';
+  const codes = [400, 401, 403, 404, 408, 418, 423];
+  if (!codes.includes(parseInt(req.params.code))) return res.redirect('/error/404?m=Invalid%20error%20code');
+  res.render(`errorC${req.params.code}`, {
+    ejsDefltElems,
+    siteName: __config.global.name,
+    msg
+  });
+});
 
 io.on('connection', (socket) => {
   console.log(`New connection: ${socket.id}`);
