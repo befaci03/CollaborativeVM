@@ -1,5 +1,5 @@
 # CollaborativeVM - Feel free, feel the open-source
-**License: <https://github.com/Befaci03/CollaborativeVM/LICENSE.md> (<https://choosealicense.com/licenses/gpl-3.0/>)**
+**License: <https://github.com/Befaci03/CollaborativeVM/LICENSE.md>** ![Static Badge](https://img.shields.io/badge/license-GPL_3.0-orange)
 
 ### Hello, welcome to [the official GitHub repo](https://github.com/Befaci03/CollaborativeVM) of CollaborativeVM
 
@@ -49,3 +49,10 @@ First, we need modules, execute `yarn && npm start` then when you are on the men
 Next, we need a modification of the config file to adapt to your use, simply follow comments on the file.
 
 Finally, to launch CollaborativeVM, execute on a terminal `npm run instantstart` or `npm start` then select `Start the server`
+
+## More about CollaborativeVM
+![Static Badge](https://img.shields.io/badge/languages-TypeScript_JavaScript_EJS-blue)
+
+![Static Badge](https://img.shields.io/badge/modules-express_socket.io_cli--progress_ldrs_child__process_inquirer_ora_path_fs_sqlite3_crypto_jsonc--parser_canvas-yellow)
+
+![Static Badge](https://img.shields.io/badge/price-free-green) (is that logic lol)
