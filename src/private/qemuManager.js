@@ -20,11 +20,11 @@ var QEMUManager = /** @class */ (function () {
             return;
         }
         var qemuConf = vmConfig.vm;
-        var qemuType = qemuConf[0], kvm = qemuConf[1], extraOpt = qemuConf[2], ram = qemuConf[3], maindrive = qemuConf[4], mdrvFormat = qemuConf[5], cddvd = qemuConf[6], cores = qemuConf[7], net = qemuConf[8], display = qemuConf[9], vga = qemuConf[10], snapshots = qemuConf[11];
+        var qemuType = qemuConf[0], kvm = qemuConf[1], extraOpt = qemuConf[2], ram = qemuConf[3], maindrive = qemuConf[4], mdrvFormat = qemuConf[5], cddvd = qemuConf[6], cores = qemuConf[7], net = qemuConf[8], display = qemuConf[9], vga = qemuConf[10], snapshots = qemuConf[11], port = qemuConf[12];
         var qemuArgs = [
             '-usbdevice', 'tablet',
             '-vnc',
-            ":1",
+            ":".concat(port - 5900),
             '-name',
             "".concat(vmId)
         ];
@@ -66,7 +66,7 @@ var QEMUManager = /** @class */ (function () {
             });
         };
         launchQemuVm();
-        var sockifyProcess = (0, child_process_1.spawn)('websockify', ["5911", "localhost:5901"]);
+        var sockifyProcess = (0, child_process_1.spawn)('websockify', ["".concat(6000 + (port - 5900)), "localhost:".concat(port)]);
         sockifyProcess.stdout.on('data', function (data) {
             console.log("[WSockify ".concat(vmId, "] ").concat(data));
         });

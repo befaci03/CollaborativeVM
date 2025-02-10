@@ -179,6 +179,12 @@ async function initialize() {
   "server": {
     "listen": 3000 // Port that the server will listen to work (3000 is the most used for port webserver)
   },
+  "generic": {
+    "rules": { // The rule name is the key and the value is the rule
+      "Rule as example": "This is an example rule",
+      "Rule as example 2": "This is another example rule"
+    }
+  },
   "links": {
     "reddit": "/r/example", // A subreddit (r) or a user (u)
     "discord": "example", // Discord invite ID (make sure that the link is permanent)
@@ -235,13 +241,14 @@ async function initialize() {
         false, // Enable network (available: false, true, "none" - none is false)
         false, // Display system (we recommend to disable, available: dbus, spice-app, egl-headless, curses, sdl, gtk, false - false is for hide the qemu window)
         "std", // VGA display system (we recommend virtio, available: qxl, std, virtio)
-        false // Enable/Disable snapshots
+        false, // Enable/Disable snapshots
+        5901 // The VNC port of the VM (required)
       ],
       "display": {
-        "thumbnail": ["track", 3000 /* Refresh delay, minimum is 2 seconds */], // The thumbnail of the VM (available: track - track means that the thumbnail will take the screen of the VM, path like /thumbs/namevm0.png all images registered on images folder, none)
+        "thumbnail": ["track"], // The thumbnail of the VM (available: track - track means that the thumbnail will take the screen of the VM, path like /thumbs/namevm0.png all images registered on images folder, none)
         "name": "VM0", // The name of the VM
         "description": "This is the example VM", // The description of the VM (a few HTML tags are functional)
-        "tags": ["nsfw", "example", "no-internet", "no-audio"] // The tags on the VM (available: nsfw, example, no-internet, no-audio, anyos)
+        "tags": ["nsfw", "example", "no-internet", "no-audio", "no-chat"] // The tags on the VM (available: nsfw, example, no-internet, no-audio, anyos, no-chat, no-mouse, no-keyboard)
       },
       "turnTimeLimit": 20, // The time for the next user to have the turn (in seconds)
       "enableChatSys": true, // Enable/Disable the chatting system
@@ -273,8 +280,7 @@ async function modifyConfig() {
                 console.error(chalk.red(`Error while launching nano: ${stderr}`));
                 mainMenu();
                 reject();
-            } else {
-            }
+            } else {}
         });
         resolve();
     });

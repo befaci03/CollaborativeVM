@@ -32,12 +32,3 @@ input[type="btn"]:active,
 .spanBtn:active {
     background-color: #575757 !important;
 }
-
-a,
-.aSpan {
-    color: #1e90ff !important;
-}
-
-#vmList a {
-    color: #1e90ff !important;
-}

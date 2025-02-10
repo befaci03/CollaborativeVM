@@ -35,9 +35,5 @@ input[type="btn"]:active,
 
 a,
 .aSpan {
-    color: #1e90ff !important;
-}
-
-#vmList a {
-    color: #1e90ff !important;
+    color: #00172f !important;
 }

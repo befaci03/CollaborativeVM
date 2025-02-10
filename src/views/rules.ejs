@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+<meta http-equiv="refresh" content="0;url=/error/404?m=The%20rules%20page%20is%20not%20available%20yet!">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= siteName %> # Home</title>
-    <link rel="stylesheet" href="/css/main.css">
+    <title><%= siteName %> rules</title>
 
+    <link rel="stylesheet" href="/css/main.css">
+  
     <script src="https://kit.fontawesome.com/bf76b26203.js" crossorigin="anonymous"></script>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <script src="/js/storageManage.js" type="text/javascript"></script>
@@ -17,24 +19,29 @@
         <span class="aSpan" onclick="window.location.href = '/vms'">VM List</span>
         <span class="aSpan" id="themeToggler">null Mode</span>
         <% if (_config.links.discord && _config.links.discord !== "" && _config.links.discord !== "example" && _config.links.discord !== "home") { %>
-          <span class="aSpan" onclick="window.location.href = '/externalLink?r=discord'"><i class="fa-brands fa-discord"></i> Discord</span>
+            <span class="aSpan" onclick="window.location.href = '/externalLink?r=discord'"><i class="fa-brands fa-discord"></i> Discord</span>
         <% } %>
         <% if (_config.links.reddit && _config.links.reddit !== "" && _config.links.reddit !== "/r/example" && _config.links.reddit !== "/home") { %>
-          <span class="aSpan" onclick="window.location.href = '/externalLink?r=reddit'"><i class="fa-brands fa-reddit fa-rotate-by" style="--fa-rotate-angle: -15deg;"></i> Reddit</span>
+            <span class="aSpan" onclick="window.location.href = '/externalLink?r=reddit'"><i class="fa-brands fa-reddit fa-rotate-by" style="--fa-rotate-angle: -15deg;"></i> Reddit</span>
         <% } %>
         <% if (_config.links.twitter && _config.links.twitter !== "" && _config.links.twitter !== "example" && _config.links.twitter !== "home") { %>
-          <span class="aSpan" onclick="window.location.href = '/externalLink?r=x&o=twitter'"><i class="fa-brands fa-x-twitter"></i> X</span>
+            <span class="aSpan" onclick="window.location.href = '/externalLink?r=x&o=twitter'"><i class="fa-brands fa-x-twitter"></i> X</span>
         <% } %>
-      </nav>
+    </nav>
     <header>
-        <h1>Welcome to the Home Page</h1>
+        <center>
+            <h1>Rules</h1>
+        </center>
     </header>
     <main>
-        <p>You are in <%= siteName %> !</p>
-        <a href="/vms">Start the collaborative moment</a>
+        <ul class="liulLineContent">
+            <% for (const [ruleName, ruleContent] of Object.entries(_config.generic.rules)) { %>
+                <li>
+                    <strong><%= ruleName %>:</strong> <%= ruleContent %>
+                </li>
+            <% } %>
+        </ul>
     </main>
-    <footer>
-        <p>2025 \ <%= siteName %></p>
-    </footer>
+    <footer></footer>
 </body>
 </html>

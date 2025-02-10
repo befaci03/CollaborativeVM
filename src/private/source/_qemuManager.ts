@@ -34,12 +34,13 @@ export class QEMUManager {
             net,
             display,
             vga,
-            snapshots
+            snapshots,
+            port
         ] = qemuConf;
 
         let qemuArgs = [
             '-usbdevice', 'tablet',
-            '-vnc', `:1`,
+            '-vnc', `:${port - 5900}`,
             '-name', `${vmId}`
         ];
 
@@ -75,7 +76,7 @@ export class QEMUManager {
         }
         launchQemuVm();
 
-        const sockifyProcess = spawn('websockify', ["5911", "localhost:5901"]);
+        const sockifyProcess = spawn('websockify', [`${6000 + (port - 5900)}`, `localhost:${port}`]);
 
         sockifyProcess.stdout.on('data', (data) => {
             console.log(`[WSockify ${vmId}] ${data}`);

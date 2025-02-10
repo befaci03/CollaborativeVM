@@ -8,20 +8,33 @@ function translateKey(layout, key) {
 function initNoVNC() {
   let rfb;
   try {
-    rfb = new RFB(document.getElementById('vmScreen'), 'ws://localhost:5911');
+    const wsUrl = `ws://${window.location.hostname}:${wsprt}`;
+    const _VMScreen = document.getElementById('vmScreen');
+    rfb = new RFB(_VMScreen, wsUrl);
     rfb.scaleViewport = true;
     rfb.resizeSession = true;
-    console.log(`RFB_ScreenViewer connected on the VM ws://localhost:5911`);
+    console.log(`RFB connected on the VM ${wsUrl}`);
 
-    document.querySelector('#vmScreen div').setAttribute('style', 'display: flex; width: 100%; height: 100%; overflow: auto; background: url(\'/loadingVm.gif\'); background-repeat: no-repeat; background-position: center; background-size: 15%;');
-    document.querySelector('canvas').setAttribute('style', 'margin: auto; outline: none; cursor: <%%>; width: 100%; height: 100%;'.replace('<%%>', vmConfig.cursorHoverScreen));
+    const vmScreenDiv = document.querySelector('#vmScreen div');
+    if (vmScreenDiv) {
+      vmScreenDiv.setAttribute('style', 'display: flex; width: 100%; height: 100%; overflow: auto; background: url(\'/loadingVm.gif\'); background-repeat: no-repeat; background-position: center; background-size: 15%;');
+    }
+    const canvas = document.querySelector('#vmScreen canvas');
+    if (canvas) {
+      canvas.setAttribute('style', `margin: auto; outline: none; cursor: ${vmConfig.cursorHoverScreen}; width: 100%; height: 100%;`);
+    }
+
     const makeSure__vmscrn = setInterval(() => {
-      document.querySelector('#vmScreen div').setAttribute('style', 'display: flex; width: 100%; height: 100%; overflow: auto; background: url(\'/loadingVm.gif\'); background-repeat: no-repeat; background-position: center; background-size: 15%;');
-      document.querySelector('canvas').setAttribute('style', 'margin: auto; outline: none; cursor: <%%>; width: 100%; height: 100%;'.replace('<%%>', vmConfig.cursorHoverScreen));
-    }, 400);
+      if (vmScreenDiv) {
+        vmScreenDiv.setAttribute('style', 'display: flex; width: 100%; height: 100%; overflow: auto; background: url(\'/loadingVm.gif\'); background-repeat: no-repeat; background-position: center; background-size: 15%;');
+      }
+      if (canvas) {
+        canvas.setAttribute('style', `margin: auto; outline: none; cursor: ${vmConfig.cursorHoverScreen}; width: 100%; height: 100%;`);
+      }
+    }, 600);
 
     rfb.addEventListener("disconnect", () => {
-      console.warn("Deconnection detected, atfer 450ms reconnecting");
+      console.warn("Deconnection detected, after 450ms reconnecting");
       clearInterval(makeSure__vmscrn);
       setTimeout(() => { return initNoVNC(); }, 450);
     });
@@ -69,9 +82,9 @@ function initSocket() {
   const socket = io();
   const vmId = window.location.pathname.split('/').pop();
 
-  socket.emit('join_vm', { vmId, username: "guest" + Math.floor(Math.random() * 99999) });
+  socket.emit('vHsi5sc2s7dDx4s', { vmId, username: "guest" + Math.floor(Math.random() * 99999) });
 
-  socket.on('update_users', (users) => {
+  socket.on('ihkz4FQS4hsqb5s7efD', (users) => {
     document.querySelector('#column1 .list').innerHTML =
       users.map(u => `<li>${u.username}</li>`).join('');
     document.querySelector('#onlineUsers_Counter').innerHTML =
@@ -79,13 +92,13 @@ function initSocket() {
   });
 
   document.getElementById('requestTurn')?.addEventListener('click', () => {
-    socket.emit('request_turn', { vmId });
+    socket.emit('vv5dsx42qHss4Hzs4', { vmId });
   });
   document.getElementById('cancelTurn')?.addEventListener('click', () => {
-    socket.emit('cancel_turn', { vmId });
+    socket.emit('zsiuGdz451Hss4Hzs4', { vmId });
   });
 
-  socket.on('update_queue', (queue) => {
+  socket.on('ihkz4FQS4hsqBcns4d1', (queue) => {
     console.log("Updated queue:", queue);
   });
 

@@ -18,6 +18,12 @@ nav {
     transition: background-color 0.4s;
 }
 
+header,
+main,
+footer {
+    margin: 0px 19px;
+}
+
 * {
     color: #fff;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -45,7 +51,12 @@ a,
 .aSpan {
     cursor: pointer;
     text-decoration: none;
+    color: #1e90ff;
     transition: color 0.3s;
+}
+
+nav span.aSpan {
+    margin-right: 8px;
 }
 
 .liulLineContent {
@@ -56,13 +67,52 @@ a,
     background-color: #3c3c3c;
     border-radius: 13px;
     margin: 8px 15px;
-    transition: background-color 0.4s;
+    transition: background-color 0.4s linear;
 }
 #vmList {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
+    gap: 5px;
     padding: 0;
     margin: 0;
 }
+
+.tag {
+    padding: 4px;
+    border-radius: 7px;
+    margin: 9px;
+    background-color: #646464;
+    color: #ffffff;
+    transition: background-color 0.4s linear;
+}
+.vmBoxTags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 4px;
+}
+
+.tag_nsfw_vmBox {
+    background-color: #b00000 !important;
+    color: #ffffff !important;
+}
+.tag_example_vmBox {
+    background-color: #d68800 !important;
+    color: #000000 !important;
+}
+.tag_anyos_vmBox {
+    background-color: #00d419 !important;
+    color: #000000 !important;
+}
+
+@keyframes discord-rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
