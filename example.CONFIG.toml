@@ -1,0 +1,61 @@
+[server]
+listener = { bind = "0.0.0.0", port = 6004 }
+origin = ["*"] # The allowed origins for the webapp. (e.g. ["*"] for all origins, ["https://example.com"] for example.com only)
+
+
+# The authentication system to use on the webapp. (that's "forcing" the webapp to use the auth system defined on the VM)
+[auth]
+enabled = false
+apiEndpoint = "http://localhost:5858" # Your API Endpoint
+secretKey = "7e8679735784f88345d78ab8a1526c2e4e48911ef78afa588967f508dd6a7c8b" # The default password is "myPassword!123" (to create yours, run `echo -n "YourPasswordHere" | sha256sum`)
+
+[auth.hcaptcha]
+enabled = false
+apiKey = "" # Your hCaptcha API Key
+
+[auth.guestPermissions] # The permissions of the guest when the auth is enabled.
+chat = true
+takeTurn = false
+startVoteReset = true
+voteReset = false
+
+
+[vm.vnc]
+port = 5900 # The port to use for the VNC server. (e.g. 5900 for a VNC server on port 5900)
+
+[vm.qemu] # The software to use for emulating the VM. Options: "qemu", "virtualbox", "vmware"
+type = "x86_64" # The command to run the VM. (x86_64, aarch64, arm, i386, ppc64, s390x, riscv64, sparc64)
+snapshots = true # Whether to enable snapshots or not. (true/false)
+
+cores = 2 # The amount of CPU cores to allocate to the VM. (e.g. 2 for a VM with 2 CPU cores)
+threads = 2 # The amount of threads to allocate to the VM. (e.g. 2 for a VM with 2 threads)
+ram = "2048" # The amount of RAM to allocate to the VM. (e.g. 2048 for a VM with 2GB of RAM)
+
+disk = ["disk.img", "qcow2"] # The disk image to use for the VM. (e.g. "disk.img" for a raw disk image, "disk.qcow2" for a qcow2 disk image)
+cd = false # Whether to insert a CD-ROM. (file/remote/false)
+
+audio = true # Whether to enable audio or not. (true/false)
+
+enableKVM = true # Whether to enable KVM or not. (true/false)
+hideWindow = true # Whether to hide the QEMU window or not. (true/false)
+
+[vm.webapp]
+id = "bestvm" # The ID of the VM. (e.g. "bestvm" for a VM with the ID "bestvm")
+title = "My awesome VM"
+description = "This is a description of my awesome VM"
+author = false # The author of the VM. (e.g. "John Doe" for a VM with the author "John Doe")
+thumbnail = "realtime:1s" # Choose the type of the VM's thumbnail. Options: "realtime:x.xxs", "static" (a URL to a PNG/JPG/JPEG/JFIF/BMP file)
+
+nsfw = false # Whether the VM is NSFW or not. (true/false)
+
+messageMaxLength = 150 # The maximum length of a single message. (e.g. 150 for a maximum message length of 150 characters)
+messageHistory = 20 # The maximum amount of messages to keep in the history. (e.g. 20 for a maximum of 20 messages in the history)
+motdWhenJoin = "welcome to my cool vm! :D"
+
+turnTime = 15 # How to long a turn is (in seconds). (e.g. 15 for a turn time of 15 seconds)
+antispam = { seconds = 5, messages = 8 } # Temporarily mute a user if they send more than x messages in n seconds (if you want to disable it, set messages to -1)
+tempMuteTime = 45 # How long a temporary mute lasts, in seconds
+voteTime = 80 # How long a reset vote lasts, in seconds
+voteCooldown = 160 # How long until another vote can be started, in seconds
+
+maxConnections = 3 # The maximum amount of connections on one client. (e.g. 3 for a VM with a maximum of 3 connections)
