@@ -9,6 +9,12 @@ enabled = false
 apiEndpoint = "http://localhost:5858" # Your API Endpoint
 secretKey = "7e8679735784f88345d78ab8a1526c2e4e48911ef78afa588967f508dd6a7c8b" # The default password is "myPassword!123" (to create yours, run `echo -n "YourPasswordHere" | sha256sum`)
 
+# If the auth system is disabled, set up THIS and not all auth.*, only false one
+[auth.false]
+enabledranks = ["owner", "mod"] # The ranks to enable on the VM (QUICK NOTE: the administrator rank is ALWAYS enabled, so you don't need to add it here)
+passwords = { owner = "", admin = "", mod = "" } # Passwords of ranks
+
+# Setting up the hCaptcha system (only when auth is enabled)
 [auth.hcaptcha]
 enabled = false
 apiKey = "" # Your hCaptcha API Key
@@ -18,6 +24,8 @@ chat = true
 takeTurn = false
 startVoteReset = true
 voteReset = false
+nonAuthLogin = false # Whether to allow guests to non authenticate login (reference to auth.false)
+rename = false # Whether to allow guests to rename themselves
 
 
 [vm.vnc]
