@@ -50,7 +50,7 @@ hideWindow = true # Whether to hide the QEMU window or not. (true/false)
 [vm.webapp]
 id = "bestvm" # The ID of the VM. (e.g. "bestvm" for a VM with the ID "bestvm")
 title = "My awesome VM"
-description = "This is a description of my awesome VM"
+description = false
 author = false # The author of the VM. (e.g. "John Doe" for a VM with the author "John Doe")
 thumbnail = "realtime:1s" # Choose the type of the VM's thumbnail. Options: "realtime:x.xxs", "static" (a URL to a PNG/JPG/JPEG/JFIF/BMP file)
 
