@@ -1,5 +1,4 @@
 import { spawn } from 'child_process';
-import { Config } from '../../../CONFIG.toml';
 
 interface QEMUConfig {
     executable: string;
