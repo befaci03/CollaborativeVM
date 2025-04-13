@@ -3,7 +3,7 @@ import crypto from 'crypto';
 export interface UserAuth {
     username: string;
     email: string;
-    password: crypto.Hash;
+    password: crypto.Hash | string;
     rank: Int16Array;
     createdAt: Date;
 }
@@ -23,7 +23,7 @@ export interface VM {
 export interface Rank {
     id: string;
     name: string;
-    password: crypto.Hash;
+    password: crypto.Hash | string;
     permissions: string[];
 }
 export interface Permission {
@@ -65,5 +65,24 @@ export interface ActionsID {
 }
 export interface Actions {
     connectVm: `${ActionsID["connect"]}${ActionsID["vm"]}`;
-
+    disconnectVm: `${ActionsID["dis"]}${ActionsID["connect"]}${ActionsID["vm"]}`;
+    setUser: `${ActionsID["set"]}${ActionsID["user"]}`;
+    getUser: `${ActionsID["get"]}${ActionsID["user"]}`;
+    setVm: `${ActionsID["set"]}${ActionsID["vm"]}`;
+    getVm: `${ActionsID["get"]}${ActionsID["vm"]}`;
+    setRank: `${ActionsID["set"]}${ActionsID["rank"]}`;
+    getRank: `${ActionsID["get"]}${ActionsID["rank"]}`;
+    setPermission: `${ActionsID["set"]}${ActionsID["permission"]}`;
+    getPermission: `${ActionsID["get"]}${ActionsID["permission"]}`;
+    setStatus: `${ActionsID["set"]}${ActionsID["status"]}`;
+    getStatus: `${ActionsID["get"]}${ActionsID["status"]}`;
+    sendMessage: `${ActionsID["send"]}${ActionsID["message"]}`;
+    getData: `${ActionsID["get"]}${ActionsID["data"]}`;
+    setControl: `${ActionsID["set"]}${ActionsID["control"]}`;
+    qemuCommand: `${ActionsID["qemu"]}${ActionsID["command"]}`;
+    voteReset: `${ActionsID["vote"]}${ActionsID["reset"]}`;
+    voteReboot: `${ActionsID["vote"]}${ActionsID["reboot"]}`;
+    clearQueue: `${ActionsID["clear"]}${ActionsID["queue"]}`;
+    listOnline: `${ActionsID["list"]}${ActionsID["online"]}`;
+    authUser: `${ActionsID["auth"]}${ActionsID["user"]}`;
 }

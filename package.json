@@ -7,8 +7,13 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "serve": "node start.js",
-    "start": "node start.js",
+    "serve": "node dist/src/index.js",
+    "start": "node dist/src/index.js",
+    "build": "tsc && yarn copy-files",
+    "build:watch": "tsc --watch",
+    "copy-files": "copyfiles -u 1 src/**/*.toml dist/",
+    "clean": "rimraf dist",
+    "prebuild": "yarn clean",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -26,7 +31,10 @@
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
-    "@types/ws": "^8.18.1"
+    "@types/ws": "^8.18.1",
+    "copyfiles": "^2.4.1",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.8.3"
   },
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

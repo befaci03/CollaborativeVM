@@ -79,7 +79,11 @@ export class VMServer extends EventEmitter {
                     ws.send(JSON.stringify({ type: 'error', message: 'Unknown command' }));
             }
         } catch (error) {
-            Logger.error(`Message handling error: ${error.message}`);
+            if (error instanceof Error) {
+                Logger.error(`Message handling error: ${error.message}`);
+            } else {
+                Logger.error('Message handling error: Unknown error');
+            }
             ws.send(JSON.stringify({ type: 'error', message: 'Invalid message format' }));
         }
     }

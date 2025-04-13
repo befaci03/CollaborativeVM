@@ -60,7 +60,7 @@ export class QEMU {
             args.push(...this.config.additionalArgs);
         }
 
-        return args;
+        return args; // Then returns it
     }
 
     public stop(): Promise<void> {

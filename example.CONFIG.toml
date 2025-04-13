@@ -12,7 +12,7 @@ secretKey = "7e8679735784f88345d78ab8a1526c2e4e48911ef78afa588967f508dd6a7c8b" #
 # If the auth system is disabled, set up THIS and not all auth.*, only false one
 [auth.false]
 enabledranks = ["owner", "mod"] # The ranks to enable on the VM (QUICK NOTE: the administrator rank is ALWAYS enabled, so you don't need to add it here)
-passwords = { owner = "", admin = "", mod = "" } # Passwords of ranks
+passwords = { owner = "", admin = "7e8679735784f88345d78ab8a1526c2e4e48911ef78afa588967f508dd6a7c8b", mod = "" } # Passwords of ranks (to create the password, run `echo -n "YourPasswordHere" | sha256sum`)
 
 # Setting up the hCaptcha system (only when auth is enabled)
 [auth.hcaptcha]
@@ -30,8 +30,11 @@ rename = false # Whether to allow guests to rename themselves
 
 [vm.vnc]
 port = 5900 # The port to use for the VNC server. (e.g. 5900 for a VNC server on port 5900)
+password = "myPassword!1234567" # The password to use for the VNC server. (e.g. "myPassword!1234567" for a VNC server with the password "myPassword!1234567")
 
-[vm.qemu] # The software to use for emulating the VM. Options: "qemu", "virtualbox", "vmware"
+
+[vm.qemu] # The software to use for emulating the VM. (Options: "qemu", "virtualbox", "vmware")
+# For QEMU, you can use the following options:
 type = "x86_64" # The command to run the VM. (x86_64, aarch64, arm, i386, ppc64, s390x, riscv64, sparc64)
 snapshots = true # Whether to enable snapshots or not. (true/false)
 
@@ -44,15 +47,22 @@ cd = false # Whether to insert a CD-ROM. (file/remote/false)
 
 audio = true # Whether to enable audio or not. (true/false)
 
-enableKVM = true # Whether to enable KVM or not. (true/false)
+acceleration = "kvm" # Whether to choose the acceleration method. (Options: "kvm", "haxm", "whpx", "none")
 hideWindow = true # Whether to hide the QEMU window or not. (true/false)
+
+[vm.vbox] # The software to use for emulating the VM. (Options: "qemu", "virtualbox", "vmware")
+# For VirtualBox, you can use the following options:
+type = "x86_64" # The command to run the VM. (x86_64, aarch64, arm, i386, ppc64, s390x, riscv64, sparc64)
+
+
+
 
 [vm.webapp]
 id = "bestvm" # The ID of the VM. (e.g. "bestvm" for a VM with the ID "bestvm")
 title = "My awesome VM"
 description = false
 author = false # The author of the VM. (e.g. "John Doe" for a VM with the author "John Doe")
-thumbnail = "realtime:1s" # Choose the type of the VM's thumbnail. Options: "realtime:x.xxs", "static" (a URL to a PNG/JPG/JPEG/JFIF/BMP file)
+thumbnail = "realtime:1s" # Choose the type of the VM's thumbnail. Options: "realtime:x.xxs", "static" (a URL to a PNG/JPG/JPEG/JFIF/BMP file), "static:capture" (captures the VM screen and then it's static)
 
 nsfw = false # Whether the VM is NSFW or not. (true/false)
 
@@ -61,7 +71,7 @@ messageHistory = 20 # The maximum amount of messages to keep in the history. (e.
 motdWhenJoin = "welcome to my cool vm! :D"
 
 turnTime = 15 # How to long a turn is (in seconds). (e.g. 15 for a turn time of 15 seconds)
-antispam = { seconds = 5, messages = 8 } # Temporarily mute a user if they send more than x messages in n seconds (if you want to disable it, set messages to -1)
+antispam = { seconds = 5, messages = 8 } # Temporarily mute a user if they send more than x messages in n seconds (if you want to disable it, replace the object with false)
 tempMuteTime = 45 # How long a temporary mute lasts, in seconds
 voteTime = 80 # How long a reset vote lasts, in seconds
 voteCooldown = 160 # How long until another vote can be started, in seconds
